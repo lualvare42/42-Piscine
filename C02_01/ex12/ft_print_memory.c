@@ -1,0 +1,54 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_memory.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lualvare <lualvare@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/31 15:33:27 by lualvare          #+#    #+#             */
+/*   Updated: 2022/11/02 11:54:59 by lualvare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <unistd.h>
+
+int	ft_str_is_printable(char n)
+{
+	if (n < 32 || n > 127)
+		return (0);
+	else
+		return (1);
+}
+
+void	ft_hexa(char a)
+{
+	char	*hex;
+	int		div;
+	int		mod;
+
+	hex = "0123456789abcdef";
+	if (a < 0)
+		a = a + 256;
+	div = a / 16;
+	mod = a % 16;
+	write(1, &hex[div], 1);
+	write(1, &hex[mod], 1);
+}
+
+void	ft_print_memory(char *str)
+{
+	int	n;
+
+	n = 0;
+	while (str[n] != '\0')
+	{
+		if (ft_str_is_printable(str[n]) == 1)
+			write(1, &str[n], 1);
+		else
+		{
+			write(1, "\\", 1);
+			ft_hexa(str[n]);
+		}
+		n++;
+	}
+}
